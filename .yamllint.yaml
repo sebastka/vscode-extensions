@@ -1,0 +1,15 @@
+---
+extends: default
+
+ignore-from-file:
+  - .gitignore
+  - .yamllintignore
+
+rules:
+  # Matches .prettierrc.json; Prettier does the formatting, yamllint catches the rest.
+  line-length:
+    max: 120
+  document-start:
+    present: true
+  comments:
+    min-spaces-from-content: 1

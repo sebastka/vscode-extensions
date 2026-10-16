@@ -9,7 +9,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skarlsen/vscode-extensions.git",
+    "url": "https://github.com/sebastka/vscode-extensions.git",
     "directory": "extensions/direnv-trusted"
   },
   "engines": {
