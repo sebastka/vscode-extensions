@@ -57,14 +57,14 @@ The [release workflow](.github/workflows/release.yaml) runs the CI checks, verif
 matches the version in `package.json`, then publishes the `.vsix` to the
 [VS Marketplace](https://marketplace.visualstudio.com/) and [Open VSX](https://open-vsx.org/),
 and attaches it to a GitHub release. It runs in the `release` environment, which only release
-tags can deploy to. Both registries use trusted publishing (OIDC) unless a `VSCE_PAT` or
-`OVSX_PAT` secret is set on that environment.
+tags can deploy to, using the `VSCE_PAT` and `OVSX_PAT` secrets of that environment.
 
 ### Publishing credentials
 
 | Secret (`release` environment) | Registry       | Expires        | Renew at                                                                                    |
 | ------------------------------ | -------------- | -------------- | ------------------------------------------------------------------------------------------- |
 | `VSCE_PAT`                     | VS Marketplace | **2027-10-15** | [Azure DevOps personal access tokens](https://dev.azure.com/sebastka/_usersSettings/tokens) |
+| `OVSX_PAT`                     | Open VSX       | Never          | [Open VSX access tokens](https://open-vsx.org/user-settings/tokens)                         |
 
 To renew `VSCE_PAT`, create a new token with organization **All accessible organizations** and
 the single scope **Marketplace > Manage** (under "Show all scopes"), then replace the secret:
