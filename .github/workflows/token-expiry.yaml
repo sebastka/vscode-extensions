@@ -1,0 +1,52 @@
+---
+name: Token expiry reminder
+
+# Opens an issue when a publishing token is about to expire. Keep the dates in sync with the
+# "Publishing credentials" section of the README.
+'on':
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      WARN_DAYS: 30
+    steps:
+      - name: VSCE_PAT
+        env:
+          SECRET: VSCE_PAT
+          EXPIRES: '2027-10-15'
+          RENEW_URL: https://dev.azure.com/sebastka/_usersSettings/tokens
+        run: |
+          days_left=$(( ($(date -d "$EXPIRES" +%s) - $(date +%s)) / 86400 ))
+          echo "$SECRET expires on $EXPIRES ($days_left days left)"
+          if [ "$days_left" -gt "$WARN_DAYS" ]; then
+            exit 0
+          fi
+
+          title="Renew the $SECRET publishing token (expires $EXPIRES)"
+          if [ -n "$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[].number')" ]; then
+            echo "Reminder issue already open"
+            exit 0
+          fi
+
+          gh issue create --title "$title" --body "$(cat <<EOF
+          The \`$SECRET\` secret of the \`release\` environment expires on **$EXPIRES**. Releases fail to
+          publish once it has expired.
+
+          1. Create a new token at $RENEW_URL with organization **All accessible organizations** and
+             the single scope **Marketplace > Manage** (under "Show all scopes").
+          2. Replace the secret: \`gh secret set $SECRET --env release\`
+          3. Update the expiry date in \`.github/workflows/token-expiry.yaml\` and in the
+             "Publishing credentials" section of the README.
+          EOF
+          )"
