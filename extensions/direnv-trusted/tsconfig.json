@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["node", "vscode"]
   },
-  "include": ["src", "test", "esbuild.ts", "eslint.config.ts"]
+  "include": ["src", "test", "scripts", "esbuild.ts", "eslint.config.ts"]
 }
