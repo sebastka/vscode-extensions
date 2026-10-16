@@ -1,3 +1,4 @@
+---
 version: 2
 updates:
   - package-ecosystem: npm
@@ -6,6 +7,7 @@ updates:
       interval: weekly
     versioning-strategy: increase
     groups:
+      # Non-major updates are grouped and auto-merged; majors get their own PR for review.
       lint:
         patterns:
           - eslint
@@ -13,12 +15,18 @@ updates:
           - typescript-eslint
           - typescript
           - globals
+        update-types: [minor, patch]
     ignore:
       # Must match the minimum VS Code version in `engines.vscode`; bump both by hand.
       - dependency-name: '@types/vscode'
       # Must match the Node.js version shipped with that VS Code version.
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+
+  - package-ecosystem: pip
+    directory: /.github/yamllint
+    schedule:
+      interval: weekly
 
   - package-ecosystem: github-actions
     directory: /

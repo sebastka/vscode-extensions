@@ -1,8 +1,9 @@
+---
 name: CI
 
-on:
+'on':
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 
 permissions:
@@ -27,7 +28,8 @@ jobs:
           DIRENV_VERSION: v2.37.1
           DIRENV_SHA256: 1f1b93dd6f38523fde26dfac96151ef9d31a374e3005cd3345fb93555ae0c9b5
         run: |
-          curl -fsSL -o "$RUNNER_TEMP/direnv" "https://github.com/direnv/direnv/releases/download/$DIRENV_VERSION/direnv.linux-amd64"
+          curl -fsSL -o "$RUNNER_TEMP/direnv" \
+            "https://github.com/direnv/direnv/releases/download/$DIRENV_VERSION/direnv.linux-amd64"
           echo "$DIRENV_SHA256  $RUNNER_TEMP/direnv" | sha256sum --check --strict
           sudo install -m 0755 "$RUNNER_TEMP/direnv" /usr/local/bin/direnv
           direnv version
@@ -43,3 +45,18 @@ jobs:
         with:
           name: vsix
           path: extensions/*/*.vsix
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install yamllint
+        run: |
+          python3 -m venv "$RUNNER_TEMP/yamllint"
+          "$RUNNER_TEMP/yamllint/bin/pip" install --require-hashes --no-deps -r .github/yamllint/requirements.txt
+          echo "$RUNNER_TEMP/yamllint/bin" >> "$GITHUB_PATH"
+
+      - run: yamllint --strict --format github .
