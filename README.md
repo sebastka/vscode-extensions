@@ -2,9 +2,9 @@
 
 Monorepo for my VS Code extensions.
 
-| Extension                                    | Description                                                                           |
-| -------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [direnv-trusted](extensions/direnv-trusted/) | Loads the direnv environment, only for trusted workspaces and allowed `.envrc` files. |
+| Extension                                    | Description                                                                           | Install                                                                                                                                                                            |
+| -------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [direnv-trusted](extensions/direnv-trusted/) | Loads the direnv environment, only for trusted workspaces and allowed `.envrc` files. | [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=SebastianKarlsen.direnv-trusted) · [Open VSX](https://open-vsx.org/extension/SebastianKarlsen/direnv-trusted) |
 
 ## Requirements
 

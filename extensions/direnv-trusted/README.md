@@ -3,6 +3,10 @@
 Loads your [direnv](https://direnv.net/) environment into VS Code — but only when VS Code
 trusts the workspace **and** direnv has allowed the `.envrc`.
 
+Install it from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=SebastianKarlsen.direnv-trusted)
+(VS Code) or [Open VSX](https://open-vsx.org/extension/SebastianKarlsen/direnv-trusted) (VSCodium,
+Cursor, Windsurf…), or run `code --install-extension SebastianKarlsen.direnv-trusted`.
+
 ## How it works
 
 - **Untrusted workspace**: the extension is not activated at all (it declares no support for
