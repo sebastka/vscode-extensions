@@ -74,4 +74,5 @@ gh secret set VSCE_PAT --env release
 ```
 
 Until it is renewed, the Marketplace publish step of the release workflow fails with an
-authentication error.
+authentication error. The [token expiry workflow](.github/workflows/token-expiry.yaml) opens an
+issue 30 days before the expiry date; update the date there too when renewing.
