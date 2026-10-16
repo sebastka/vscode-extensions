@@ -8,7 +8,7 @@
 !.vscode
 !.vscodeignore
 !.yamllint.yaml
-!.yamllint-ignore.txt
+!.yamllintignore
 !extensions/*/test/fixture/.envrc
 node_modules
 dist
