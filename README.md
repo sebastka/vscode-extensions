@@ -59,3 +59,19 @@ matches the version in `package.json`, then publishes the `.vsix` to the
 and attaches it to a GitHub release. It runs in the `release` environment, which only release
 tags can deploy to. Both registries use trusted publishing (OIDC) unless a `VSCE_PAT` or
 `OVSX_PAT` secret is set on that environment.
+
+### Publishing credentials
+
+| Secret (`release` environment) | Registry       | Expires        | Renew at                                                                                    |
+| ------------------------------ | -------------- | -------------- | ------------------------------------------------------------------------------------------- |
+| `VSCE_PAT`                     | VS Marketplace | **2027-10-15** | [Azure DevOps personal access tokens](https://dev.azure.com/sebastka/_usersSettings/tokens) |
+
+To renew `VSCE_PAT`, create a new token with organization **All accessible organizations** and
+the single scope **Marketplace > Manage** (under "Show all scopes"), then replace the secret:
+
+```sh
+gh secret set VSCE_PAT --env release
+```
+
+Until it is renewed, the Marketplace publish step of the release workflow fails with an
+authentication error.
