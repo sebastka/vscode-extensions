@@ -3,8 +3,13 @@
   "displayName": "direnv (trusted)",
   "description": "Loads your direnv environment into VS Code, only for trusted workspaces and allowed .envrc files.",
   "version": "0.1.0",
-  "publisher": "sebastian-karlsen",
+  "publisher": "SebastianKarlsen",
   "license": "MIT",
+  "icon": "images/icon.png",
+  "homepage": "https://github.com/sebastka/vscode-extensions/tree/master/extensions/direnv-trusted#readme",
+  "bugs": {
+    "url": "https://github.com/sebastka/vscode-extensions/issues"
+  },
   "private": true,
   "type": "module",
   "repository": {
@@ -108,6 +113,7 @@
   "scripts": {
     "build": "node esbuild.ts --production",
     "watch": "node esbuild.ts --watch",
+    "icon": "node scripts/render-icon.ts",
     "typecheck": "tsc -p .",
     "lint": "eslint --flag unstable_native_nodejs_ts_config .",
     "test": "node --test 'test/**/*.test.ts'",
@@ -116,12 +122,14 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@resvg/resvg-js": "2.6.2",
     "@types/node": "22.20.5",
     "@types/vscode": "1.100.0",
     "@vscode/vsce": "4.0.0",
     "esbuild": "0.28.2",
     "eslint": "10.12.0",
     "globals": "17.13.0",
+    "ovsx": "1.2.0",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.2"
   }

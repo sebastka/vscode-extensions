@@ -40,3 +40,22 @@ checks to pass. Merged branches are deleted automatically.
 Dependencies are pinned to exact versions (npm lockfile integrity hashes, GitHub Actions by
 commit SHA, pip requirements by hash) and kept up to date by Dependabot. Non-major updates are
 merged automatically once the checks pass; majors wait for review.
+
+## Releasing
+
+Each extension is released on its own, from a tag named `<extension>-v<version>`:
+
+1. In a pull request, bump `version` in `extensions/<extension>/package.json` and update its
+   `CHANGELOG.md`.
+2. Once merged, tag the merge commit and push the tag:
+
+   ```sh
+   git tag direnv-trusted-v0.1.0 && git push origin direnv-trusted-v0.1.0
+   ```
+
+The [release workflow](.github/workflows/release.yaml) runs the CI checks, verifies that the tag
+matches the version in `package.json`, then publishes the `.vsix` to the
+[VS Marketplace](https://marketplace.visualstudio.com/) and [Open VSX](https://open-vsx.org/),
+and attaches it to a GitHub release. It runs in the `release` environment, which only release
+tags can deploy to. Both registries use trusted publishing (OIDC) unless a `VSCE_PAT` or
+`OVSX_PAT` secret is set on that environment.

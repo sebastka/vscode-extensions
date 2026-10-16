@@ -5,6 +5,8 @@ name: CI
   push:
     branches: [master]
   pull_request:
+  # Called by the release workflow, so that releases go through the same checks.
+  workflow_call:
 
 permissions:
   contents: read

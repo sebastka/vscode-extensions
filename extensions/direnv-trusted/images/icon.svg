@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3445" />
+      <stop offset="1" stop-color="#1a202b" />
+    </linearGradient>
+    <linearGradient id="folder" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffcf5c" />
+      <stop offset="1" stop-color="#f5a623" />
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4cd685" />
+      <stop offset="1" stop-color="#22a05a" />
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="24" fill="url(#background)" />
+
+  <!-- Directory -->
+  <path d="M14 34a6 6 0 0 1 6-6h24l8 9h44a6 6 0 0 1 6 6v8H14z" fill="#d98b12" />
+  <path d="M14 47a6 6 0 0 1 6-6h82a6 6 0 0 1 6 6v43a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="url(#folder)" />
+
+  <!-- Shell prompt on the directory -->
+  <path d="M26 58l11 9-11 9" fill="none" stroke="#1a202b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M43 77h14" stroke="#1a202b" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Trust shield -->
+  <path
+    d="M92 62l22 8v16c0 14-9.5 24-22 28-12.5-4-22-14-22-28V70z"
+    fill="url(#shield)"
+    stroke="#1a202b"
+    stroke-width="5"
+    stroke-linejoin="round"
+  />
+  <path d="M81 87l8 8 14-15" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
