@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run direnv-trusted",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}/extensions/direnv-trusted",
+        "${workspaceFolder}/extensions/direnv-trusted/test/fixture"
+      ],
+      "outFiles": ["${workspaceFolder}/extensions/direnv-trusted/dist/**/*.cjs"],
+      "preLaunchTask": "direnv-trusted: watch"
+    }
+  ]
+}

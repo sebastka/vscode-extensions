@@ -1,0 +1,13 @@
+.*
+!.github
+!.gitignore
+!.npmrc
+!.nvmrc
+!.prettierrc.json
+!.prettierignore
+!.vscode
+!.vscodeignore
+!extensions/*/test/fixture/.envrc
+node_modules
+dist
+*.vsix

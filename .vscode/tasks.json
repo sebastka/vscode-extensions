@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "direnv-trusted: watch",
+      "type": "npm",
+      "script": "watch",
+      "path": "extensions/direnv-trusted",
+      "isBackground": true,
+      "presentation": { "reveal": "never" },
+      "problemMatcher": {
+        "owner": "esbuild",
+        "source": "esbuild",
+        "fileLocation": ["relative", "${workspaceFolder}/extensions/direnv-trusted"],
+        "pattern": {
+          "regexp": "^(.+):(\\d+):(\\d+): (error|warning): (.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        },
+        "background": {
+          "activeBegin": true,
+          "beginsPattern": "^\\[watch\\] build started",
+          "endsPattern": "^\\[watch\\] build finished"
+        }
+      }
+    }
+  ]
+}

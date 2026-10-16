@@ -1,0 +1,128 @@
+{
+  "name": "direnv-trusted",
+  "displayName": "direnv (trusted)",
+  "description": "Loads your direnv environment into VS Code, only for trusted workspaces and allowed .envrc files.",
+  "version": "0.1.0",
+  "publisher": "sebastian-karlsen",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skarlsen/vscode-extensions.git",
+    "directory": "extensions/direnv-trusted"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "direnv",
+    "envrc",
+    "environment",
+    "nix",
+    "workspace trust"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "workspaceContains:.envrc",
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Loading an .envrc runs arbitrary code from the workspace."
+    },
+    "virtualWorkspaces": false
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "direnv-trusted.reload",
+        "title": "Reload Environment",
+        "category": "direnv"
+      },
+      {
+        "command": "direnv-trusted.allow",
+        "title": "Allow .envrc",
+        "category": "direnv"
+      },
+      {
+        "command": "direnv-trusted.deny",
+        "title": "Deny .envrc",
+        "category": "direnv"
+      },
+      {
+        "command": "direnv-trusted.openEnvrc",
+        "title": "Open .envrc",
+        "category": "direnv"
+      },
+      {
+        "command": "direnv-trusted.showOutput",
+        "title": "Show Output",
+        "category": "direnv"
+      }
+    ],
+    "configuration": {
+      "title": "direnv (trusted)",
+      "properties": {
+        "direnv-trusted.path": {
+          "type": "string",
+          "default": "direnv",
+          "scope": "machine",
+          "markdownDescription": "Path to the `direnv` executable (direnv >= 2.33). Machine-scoped so that a workspace cannot point it elsewhere."
+        },
+        "direnv-trusted.promptToAllow": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show a notification offering to allow (or deny) an `.envrc` that direnv has not allowed yet."
+        },
+        "direnv-trusted.restartExtensions": {
+          "type": "string",
+          "enum": [
+            "prompt",
+            "always",
+            "never"
+          ],
+          "enumDescriptions": [
+            "Ask before restarting the extension host.",
+            "Restart the extension host automatically (at most once a minute).",
+            "Never restart; processes already started by other extensions keep their old environment."
+          ],
+          "default": "prompt",
+          "markdownDescription": "Whether to restart extensions when the environment changes, so that processes they already started (language servers…) pick it up."
+        },
+        "direnv-trusted.cacheEnvironment": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Cache the loaded environment in the workspace state, and apply it synchronously at startup (if direnv still allows the same `.envrc`) so that other extensions see it from the start. **Note:** values, including secrets loaded from `.env` files, are stored in VS Code's workspace storage."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.ts --production",
+    "watch": "node esbuild.ts --watch",
+    "typecheck": "tsc -p .",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config .",
+    "test": "node --test 'test/**/*.test.ts'",
+    "package": "vsce package --no-dependencies",
+    "vscode:prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@types/vscode": "1.100.0",
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "0.28.2",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2"
+  }
+}

@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    versioning-strategy: increase
+    groups:
+      lint:
+        patterns:
+          - eslint
+          - '@eslint/*'
+          - typescript-eslint
+          - typescript
+          - globals
+    ignore:
+      # Must match the minimum VS Code version in `engines.vscode`; bump both by hand.
+      - dependency-name: '@types/vscode'
+      # Must match the Node.js version shipped with that VS Code version.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

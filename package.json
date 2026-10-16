@@ -1,0 +1,39 @@
+{
+  "name": "vscode-extensions",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "extensions/*"
+  ],
+  "engines": {
+    "node": ">=26"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=26",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11",
+      "onFail": "error"
+    }
+  },
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces --if-present",
+    "package": "npm run package --workspaces",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  },
+  "allowScripts": {
+    "esbuild": false,
+    "@vscode/vsce-sign": false
+  }
+}

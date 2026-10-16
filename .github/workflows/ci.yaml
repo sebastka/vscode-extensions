@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # Distribution packages are too old (`direnv status --json` needs >= 2.33).
+      - name: Install direnv
+        env:
+          DIRENV_VERSION: v2.37.1
+          DIRENV_SHA256: 1f1b93dd6f38523fde26dfac96151ef9d31a374e3005cd3345fb93555ae0c9b5
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/direnv" "https://github.com/direnv/direnv/releases/download/$DIRENV_VERSION/direnv.linux-amd64"
+          echo "$DIRENV_SHA256  $RUNNER_TEMP/direnv" | sha256sum --check --strict
+          sudo install -m 0755 "$RUNNER_TEMP/direnv" /usr/local/bin/direnv
+          direnv version
+
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run package
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix
+          path: extensions/*/*.vsix
