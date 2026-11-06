@@ -125,7 +125,7 @@
     "@resvg/resvg-js": "2.6.2",
     "@types/node": "22.20.5",
     "@types/vscode": "1.100.0",
-    "@vscode/vsce": "4.0.0",
+    "@vscode/vsce": "4.1.0",
     "esbuild": "0.28.2",
     "eslint": "10.14.0",
     "globals": "17.14.0",
